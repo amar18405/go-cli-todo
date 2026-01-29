@@ -1,8 +1,9 @@
 package main
 
-import(
-	"fmt";
+import (
+	"fmt"
 	"os"
+	"strconv"
 )
 
 func printUsage(){
@@ -35,7 +36,19 @@ func main(){
 		listTodo()
 
 	case "done":
-		fmt.Println("Done command selected")
+		if len(args) < 3{
+			fmt.Println("Enter a task ID ")
+			return
+		}
+
+		id, err := strconv.Atoi(args[2])
+
+		if err != nil{
+			fmt.Println("Invalid Task ID!")
+			return
+		}
+
+		markTodoDone(id)
 
 	case "delete":
 		fmt.Println("Delete command selected")

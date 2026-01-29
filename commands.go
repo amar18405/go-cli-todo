@@ -32,3 +32,20 @@ func listTodo(){
 	}
 	return
 }
+
+func markTodoDone(id int){
+	for i, todo := range todos{
+		if todo.ID == id {
+			if todo.Completed {
+				fmt.Println("Task already completed : ", todo.Title)
+				return
+			}
+
+			todos[i].Completed = true
+			fmt.Println("Task marked as done : ", todos[i].Title)
+			return
+		}
+	}
+	fmt.Println("No task found with ID : ", id)
+	return
+}
