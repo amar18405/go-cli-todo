@@ -51,7 +51,19 @@ func main(){
 		markTodoDone(id)
 
 	case "delete":
-		fmt.Println("Delete command selected")
+		if len(args) < 3{
+			fmt.Println("Enter a task ID")
+			return
+		}
+
+		id, err := strconv.Atoi(args[2])
+
+		if err != nil {
+			fmt.Println("Invalid Task ID")
+			return
+		}
+
+		deleteTodo(id)
 
 	default:
 		fmt.Println("Unknown command selected : ", command)

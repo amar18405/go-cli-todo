@@ -49,3 +49,15 @@ func markTodoDone(id int){
 	fmt.Println("No task found with ID : ", id)
 	return
 }
+
+func deleteTodo(id int){
+	for i, todo := range todos{
+		if todo.ID == id{
+			todos = append(todos[:i],todos[i+1:]... )
+			fmt.Println("Task deleted : ", id)
+			return
+		}
+	}
+	fmt.Println("No task found with id :", id)
+	return
+}
