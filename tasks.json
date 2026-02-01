@@ -3,5 +3,20 @@
     "id": 1,
     "title": "Test persistence",
     "completed": true
+  },
+  {
+    "id": 2,
+    "title": "abcd",
+    "completed": true
+  },
+  {
+    "id": 3,
+    "title": "efgh",
+    "completed": false
+  },
+  {
+    "id": 4,
+    "title": "ijkl",
+    "completed": false
   }
 ]

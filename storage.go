@@ -34,3 +34,19 @@ func loadTodosFromFile(){
 	}
 	nextID = maxID + 1
 }
+
+func saveTodosToFile(){
+	data, err := json.MarshalIndent(todos, "", "  ")
+
+	if err != nil {
+		fmt.Println("error encoding todo tasks: ", err)
+		return
+	}
+
+	err = os.WriteFile("tasks.json", data, 0644)
+
+	if err != nil {
+		fmt.Println("Error writing tasks file: ", err)
+		return
+	}
+}

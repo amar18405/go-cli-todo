@@ -12,7 +12,7 @@ func addTodo(title string){
 	nextID++
 
 	todos = append(todos,todo)
-
+	saveTodosToFile()
 	fmt.Println("Added task: ", todo.Title)
 }
 
@@ -25,7 +25,7 @@ func listTodo(){
 	for _, i := range todos {
 		status := " "
 		if(i.Completed){
-			status = " Done "
+			status = "✓"
 		}
 		
 		fmt.Printf("[%s] %d: %s \n", status, i.ID, i.Title)
@@ -43,6 +43,7 @@ func markTodoDone(id int){
 
 			todos[i].Completed = true
 			fmt.Println("Task marked as done : ", todos[i].Title)
+			saveTodosToFile()
 			return
 		}
 	}
@@ -54,6 +55,7 @@ func deleteTodo(id int){
 	for i, todo := range todos{
 		if todo.ID == id{
 			todos = append(todos[:i],todos[i+1:]... )
+			saveTodosToFile()
 			fmt.Println("Task deleted : ", id)
 			return
 		}
