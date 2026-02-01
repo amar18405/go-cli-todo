@@ -15,6 +15,7 @@ func printUsage(){
 }
 
 func main(){
+	loadTodosFromFile()
 	args := os.Args
 
 	if len(args) < 2 {
