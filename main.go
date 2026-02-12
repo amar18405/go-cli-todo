@@ -2,8 +2,8 @@ package main
 
 import (
 	"fmt"
-	"os"
-	"strconv"
+	//"os"
+	//"strconv"
 )
 
 func printUsage(){
@@ -16,58 +16,59 @@ func printUsage(){
 
 func main(){
 	loadTodosFromFile()
-	args := os.Args
+	// args := os.Args
 
-	if len(args) < 2 {
-		printUsage()
-		return
-	}
+	// if len(args) < 2 {
+	// 	printUsage()
+	// 	return
+	// }
 
-	command := args[1]
+	// command := args[1]
 	
-	switch command{
-	case "add":
-		if(len(args) < 3){
-			fmt.Println("Please provide a task description.")
-			return
-		}
-		addTodo(args[2])
+	// switch command{
+	// case "add":
+	// 	if(len(args) < 3){
+	// 		fmt.Println("Please provide a task description.")
+	// 		return
+	// 	}
+	// 	addTodo(args[2])
 
-	case "list":
-		listTodo()
+	// case "list":
+	// 	listTodo()
 
-	case "done":
-		if len(args) < 3{
-			fmt.Println("Enter a task ID ")
-			return
-		}
+	// case "done":
+	// 	if len(args) < 3{
+	// 		fmt.Println("Enter a task ID ")
+	// 		return
+	// 	}
 
-		id, err := strconv.Atoi(args[2])
+	// 	id, err := strconv.Atoi(args[2])
 
-		if err != nil{
-			fmt.Println("Invalid Task ID!")
-			return
-		}
+	// 	if err != nil{
+	// 		fmt.Println("Invalid Task ID!")
+	// 		return
+	// 	}
 
-		markTodoDone(id)
+	// 	markTodoDone(id)
 
-	case "delete":
-		if len(args) < 3{
-			fmt.Println("Enter a task ID")
-			return
-		}
+	// case "delete":
+	// 	if len(args) < 3{
+	// 		fmt.Println("Enter a task ID")
+	// 		return
+	// 	}
 
-		id, err := strconv.Atoi(args[2])
+	// 	id, err := strconv.Atoi(args[2])
 
-		if err != nil {
-			fmt.Println("Invalid Task ID")
-			return
-		}
+	// 	if err != nil {
+	// 		fmt.Println("Invalid Task ID")
+	// 		return
+	// 	}
 
-		deleteTodo(id)
+	// 	deleteTodo(id)
 
-	default:
-		fmt.Println("Unknown command selected : ", command)
-		printUsage()
-	}
+	// default:
+	// 	fmt.Println("Unknown command selected : ", command)
+	// 	printUsage()
+	// }
+	startServer()
 }
