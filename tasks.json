@@ -16,8 +16,8 @@
   },
   {
     "id": 4,
-    "title": "ijkl",
-    "completed": false
+    "title": "Updated title",
+    "completed": true
   },
   {
     "id": 5,

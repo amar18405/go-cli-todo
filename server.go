@@ -4,26 +4,78 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
+	"strconv"
+	"strings"
 )
 
-type createTodoRequest struct{
+type createTodoRequest struct {
 	Title string `json:"title"`
 }
 
-func startServer(){
-	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request)  {
-		fmt.Fprintln(w,"Hello from todo Api")
+type updateTodoRequest struct {
+	Title     string `json:"title"`
+	Completed *bool  `json:"completed"`
+}
+
+func startServer() {
+	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+		fmt.Fprintln(w, "Hello from todo Api")
 	})
 
 	http.HandleFunc("/todos", todosHandler)
+	http.HandleFunc("/todos/", todoByIDHandler)
 
 	fmt.Println("server running on http://localhost:8080")
 	http.ListenAndServe(":8080", nil)
 }
 
-func todosHandler(w http.ResponseWriter, r *http.Request){
+func todoByIDHandler(w http.ResponseWriter, r *http.Request) {
+	if r.Method != http.MethodPut {
+		http.Error(w, "Invalid Method Applied", http.StatusMethodNotAllowed)
+		return
+	}
+
+	parts := strings.Split(r.URL.Path, "/")
+
+	if len(parts) != 3 || parts[2] == "" {
+		http.Error(w, "Invalid URL ", http.StatusBadRequest)
+		return
+	}
+
+	id, err := strconv.Atoi(parts[2])
+	if err != nil {
+		http.Error(w, "Invalid IDProvided", http.StatusBadRequest)
+		return
+	}
+
+	var req updateTodoRequest
+	err = json.NewDecoder(r.Body).Decode(&req)
+	if err != nil {
+		http.Error(w, "Invalid Request Body", http.StatusBadRequest)
+		return
+	}
+
+	for i, todo := range todos {
+		if todo.ID == id {
+			if req.Title != "" {
+				todos[i].Title = req.Title
+			}
+			if req.Completed != nil {
+				todos[i].Completed = *req.Completed
+			}
+			saveTodosToFile()
+
+			w.Header().Set("Content-Type", "application/json")
+			json.NewEncoder(w).Encode(todos[i])
+			return
+		}
+	}
+	http.Error(w, "Todo Not Found", http.StatusNotFound)
+}
+
+func todosHandler(w http.ResponseWriter, r *http.Request) {
 	// //only allow get methods
-		
+
 	// if r.Method != http.MethodGet {
 	// 	http.Error(w,"Method Not Allowed", http.StatusMethodNotAllowed)
 	// 	return
@@ -44,7 +96,7 @@ func todosHandler(w http.ResponseWriter, r *http.Request){
 		w.Header().Set("Content-Type", "application/json")
 		//converts todos to json and writes it in the response
 		json.NewEncoder(w).Encode(todos)
-		
+
 	case http.MethodPost:
 		var req createTodoRequest
 
@@ -52,12 +104,12 @@ func todosHandler(w http.ResponseWriter, r *http.Request){
 
 		if err != nil {
 			http.Error(w, "invalid request body", http.StatusBadRequest)
-			return;
+			return
 		}
 
 		todo := Todo{
-			ID : nextID,
-			Title: req.Title,
+			ID:        nextID,
+			Title:     req.Title,
 			Completed: false,
 		}
 
@@ -70,7 +122,7 @@ func todosHandler(w http.ResponseWriter, r *http.Request){
 		json.NewEncoder(w).Encode(todos)
 
 	default:
-		http.Error(w,"invalid method", http.StatusMethodNotAllowed)
+		http.Error(w, "invalid method", http.StatusMethodNotAllowed)
 
 	}
 
