@@ -15,11 +15,6 @@
     "completed": false
   },
   {
-    "id": 4,
-    "title": "Updated title",
-    "completed": true
-  },
-  {
     "id": 5,
     "title": "Learn REST in Go",
     "completed": false
