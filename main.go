@@ -70,5 +70,5 @@ func main(){
 	// 	fmt.Println("Unknown command selected : ", command)
 	// 	printUsage()
 	// }
-	startServer()
+	startGinServer()
 }
