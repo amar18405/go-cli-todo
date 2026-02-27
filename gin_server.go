@@ -7,7 +7,9 @@ import(
 
 func startGinServer(){
 	r := gin.Default()
-
+	r.GET("/", func (c * gin.Context)  {
+		c.String(404, "Hello from gin server")
+	})
 	r.GET("/todos", getTodosGin)
 
 	r.Run(":8080")
