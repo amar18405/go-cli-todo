@@ -13,7 +13,7 @@ type createTodoRequest struct {
 }
 
 type updateTodoRequest struct {
-	Title     string `json:"title"`
+	Title     *string `json:"title"`
 	Completed *bool  `json:"completed"`
 }
 
@@ -91,8 +91,8 @@ func todoByIDHandler(w http.ResponseWriter, r *http.Request) {
 
 		for i, abcd := range todos{
 			if abcd.ID == id{
-				if req.Title != "" {
-					todos[i].Title = req.Title
+				if req.Title != nil {
+					todos[i].Title = *req.Title
 				}
 				if req.Completed != nil {
 					todos[i].Completed = *req.Completed
