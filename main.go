@@ -15,6 +15,7 @@ func printUsage(){
 }
 
 func main(){
+	connectDB()
 	loadTodosFromFile()
 	// args := os.Args
 

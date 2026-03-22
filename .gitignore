@@ -1,0 +1,20 @@
+# Go build files
+bin/
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+# Go modules
+go.sum
+
+# Environment files
+.env
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Storegi
