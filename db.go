@@ -1,19 +1,19 @@
 package main
 
-import(
-	
+import (
 	"database/sql"
-	_"github.com/lib/pq"
+
+	_ "github.com/lib/pq"
 )
 
 var db *sql.DB
 
-func connectDB(){
-	connStr := "user = postgres password = Samacp dbname = todo_app sslmode = disable"
+func connectDB() {
+	connStr := "user = postgres password = ****** dbname = todo_app sslmode = disable"
 
 	var err error
 	db, err = sql.Open("postgres", connStr)
-	if err != nil{
+	if err != nil {
 		panic(err)
 	}
 
